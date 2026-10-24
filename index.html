@@ -1,0 +1,1200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartGate - Smart College Bus Entry Management System</title>
+    <meta name="description" content="AI & IoT Powered College Bus Entry, ANPR Verification, and Gate Pass Monitoring System (Software Simulation Prototype)">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- ==========================================================================
+         1. LOGIN VIEW (Full Screen Authentication)
+         ========================================================================== -->
+    <div id="login-view">
+        <div class="login-container">
+            <!-- Hero Left Side -->
+            <div class="login-hero">
+                <div class="hero-brand">
+                    <div class="brand-icon-box">
+                        <i data-lucide="shield-check" style="width: 32px; height: 32px;"></i>
+                    </div>
+                    <div>
+                        <span class="badge badge-cyan" style="margin-bottom: 4px;">AUTOMATED GATE SYSTEM</span>
+                        <h2 style="font-size: 20px; font-weight: 800; letter-spacing: 0.5px;">SMARTGATE</h2>
+                    </div>
+                </div>
+
+                <h1 class="hero-title">Smart College Bus Entry Management System</h1>
+                <p class="hero-subtitle">
+                    A high-tech software prototype simulating IoT gate sensors, high-speed camera ANPR plate recognition, and real-time fleet verification for modern college campuses.
+                </p>
+
+                <!-- Visual Tech Pipeline Card -->
+                <div class="pipeline-flow-card">
+                    <div style="font-size: 11px; font-weight: 700; color: var(--cyan-primary); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 14px;">
+                        Simulated Hardware & AI Pipeline
+                    </div>
+                    <div class="flow-steps-grid">
+                        <div class="flow-step-item">
+                            <div class="flow-step-icon"><i data-lucide="radio"></i></div>
+                            <span class="flow-step-label">IR Sensor</span>
+                        </div>
+                        <span class="flow-arrow">→</span>
+                        <div class="flow-step-item">
+                            <div class="flow-step-icon"><i data-lucide="camera"></i></div>
+                            <span class="flow-step-label">HD Camera</span>
+                        </div>
+                        <span class="flow-arrow">→</span>
+                        <div class="flow-step-item">
+                            <div class="flow-step-icon"><i data-lucide="scan-line"></i></div>
+                            <span class="flow-step-label">ANPR / OCR</span>
+                        </div>
+                        <span class="flow-arrow">→</span>
+                        <div class="flow-step-item">
+                            <div class="flow-step-icon"><i data-lucide="database"></i></div>
+                            <span class="flow-step-label">Fleet DB</span>
+                        </div>
+                        <span class="flow-arrow">→</span>
+                        <div class="flow-step-item">
+                            <div class="flow-step-icon" style="border-color: var(--success); color: var(--success);"><i data-lucide="check-circle-2"></i></div>
+                            <span class="flow-step-label">Gate Pass</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display: flex; gap: 12px; margin-top: 24px; align-items: center;">
+                    <span class="badge badge-demo">● HARDWARE SIMULATION</span>
+                    <span class="badge badge-success">● READY FOR DEMO</span>
+                </div>
+            </div>
+
+            <!-- Login Card Right Side -->
+            <div class="login-card glass-panel-elevated">
+                <div class="login-card-header">
+                    <h2 class="login-card-title">Sign In to Dashboard</h2>
+                    <p class="login-card-desc">Enter administrator credentials to access gate controls.</p>
+                </div>
+
+                <!-- Demo Credentials Helper Box -->
+                <div class="demo-credentials-box" id="fill-demo-creds" title="Click to auto-fill demo credentials">
+                    <div class="demo-cred-info">
+                        <div>Demo User: <span>admin</span></div>
+                        <div>Demo Pass: <span>admin123</span></div>
+                    </div>
+                    <button type="button" class="demo-cred-fill-btn">Auto-Fill</button>
+                </div>
+
+                <form id="login-form">
+                    <div class="form-group">
+                        <label class="form-label" for="login-username">Username</label>
+                        <input type="text" id="login-username" class="form-control" placeholder="Enter username (admin)" required autocomplete="username">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="login-password">Password</label>
+                        <input type="password" id="login-password" class="form-control" placeholder="Enter password (admin123)" required autocomplete="current-password">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-lg" style="width: 100%; margin-top: 10px;">
+                        <i data-lucide="log-in"></i> SIGN IN TO DASHBOARD
+                    </button>
+                </form>
+
+                <div style="margin-top: 24px; text-align: center; font-size: 11px; color: var(--text-muted); border-top: 1px solid var(--border-subtle); padding-top: 16px;">
+                    College Major Project Software Prototype • Frontend Demonstration
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ==========================================================================
+         2. MAIN APP SHELL
+         ========================================================================== -->
+    <div id="app-shell" style="display: none;">
+
+        <!-- Sidebar Navigation -->
+        <aside id="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-brand">
+                    <div class="brand-icon">
+                        <i data-lucide="shield-check" style="width: 22px; height: 22px;"></i>
+                    </div>
+                    <div class="brand-text">
+                        <h2>SMARTGATE</h2>
+                        <span>COLLEGE BUS SYSTEM</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sidebar-nav">
+                <div class="nav-section-label">Main Navigation</div>
+
+                <a href="#dashboard" class="nav-item active" data-view="dashboard">
+                    <span class="nav-icon"><i data-lucide="layout-dashboard"></i></span>
+                    <span>Dashboard</span>
+                </a>
+
+                <a href="#scan" class="nav-item" data-view="scan">
+                    <span class="nav-icon"><i data-lucide="scan-line"></i></span>
+                    <span>Live Scan</span>
+                    <span class="nav-badge badge badge-cyan">ANPR</span>
+                </a>
+
+                <a href="#buses" class="nav-item" data-view="buses">
+                    <span class="nav-icon"><i data-lucide="bus"></i></span>
+                    <span>Bus Management</span>
+                </a>
+
+                <a href="#history" class="nav-item" data-view="history">
+                    <span class="nav-icon"><i data-lucide="clipboard-list"></i></span>
+                    <span>Entry History</span>
+                </a>
+
+                <a href="#reports" class="nav-item" data-view="reports">
+                    <span class="nav-icon"><i data-lucide="bar-chart-3"></i></span>
+                    <span>Reports</span>
+                </a>
+
+                <div class="nav-section-label" style="margin-top: 14px;">System & Demo</div>
+
+                <a href="#system" class="nav-item" data-view="system">
+                    <span class="nav-icon"><i data-lucide="cpu"></i></span>
+                    <span>System Status</span>
+                    <span class="status-dot green" style="margin-left: auto;"></span>
+                </a>
+
+                <a href="#settings" class="nav-item" data-view="settings">
+                    <span class="nav-icon"><i data-lucide="settings"></i></span>
+                    <span>Settings</span>
+                </a>
+            </div>
+
+            <div class="sidebar-footer">
+                <div class="admin-profile">
+                    <div class="profile-avatar">AD</div>
+                    <div class="profile-info">
+                        <h4>Admin Gate</h4>
+                        <span>Gate Security #01</span>
+                    </div>
+                </div>
+                <button id="logout-btn" class="btn btn-secondary btn-icon btn-sm" title="Logout">
+                    <i data-lucide="log-out" style="width: 15px; height: 15px; color: var(--danger);"></i>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Viewport Area -->
+        <div class="main-wrapper">
+
+            <!-- Top Header -->
+            <header id="top-header">
+                <div class="header-left">
+                    <button id="mobile-menu-btn" class="btn btn-secondary btn-icon" style="display: none;">
+                        <i data-lucide="menu"></i>
+                    </button>
+                    <div class="header-title-group">
+                        <h1>
+                            SMARTGATE
+                            <span style="font-size: 13px; font-weight: 500; color: var(--text-secondary);">• Bus Entry Hub</span>
+                        </h1>
+                        <div class="header-subtitle">SMART COLLEGE BUS ENTRY MANAGEMENT SYSTEM</div>
+                    </div>
+                    <div class="header-badges">
+                        <span class="badge badge-demo">● DEMO MODE</span>
+                        <span class="badge badge-success">● SYSTEM ONLINE</span>
+                    </div>
+                </div>
+
+                <div class="header-right">
+                    <!-- Live Clock -->
+                    <div class="header-clock-widget">
+                        <i data-lucide="clock" style="width: 14px; height: 14px; color: var(--cyan-primary);"></i>
+                        <span id="header-live-time" class="clock-time">00:00:00</span>
+                        <span id="header-live-date" class="clock-date">Mon, Oct 3, 2026</span>
+                    </div>
+
+                    <!-- Presentation Mode Button -->
+                    <button id="btn-presentation-mode" class="btn btn-secondary btn-sm" title="Toggle Fullscreen Presentation View">
+                        <i data-lucide="presentation" style="color: var(--purple-accent);"></i>
+                        <span>Presentation Mode</span>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Presentation Banner (Visible only in presentation mode) -->
+            <div class="presentation-banner">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <span class="badge badge-demo" style="font-size: 12px; padding: 5px 12px;">★ PRESENTATION DEMO MODE</span>
+                    <span style="font-size: 13px; color: var(--text-secondary);">Quick Demonstration Scenarios:</span>
+                </div>
+                <div class="presentation-scenario-buttons">
+                    <button class="btn btn-sm btn-success" onclick="window.scanModule.selectedPreset='MP04AB1234'; window.scanModule.updatePresetChips(); window.scanModule.startScan();">
+                        <i data-lucide="play"></i> 1. Registered IN/OUT
+                    </button>
+                    <button class="btn btn-sm btn-danger" onclick="window.scanModule.selectedPreset='MP04XY9999'; window.scanModule.updatePresetChips(); window.scanModule.startScan();">
+                        <i data-lucide="alert-triangle"></i> 2. Unknown Bus Alert
+                    </button>
+                    <button class="btn btn-sm btn-amber" onclick="window.scanModule.selectedPreset='MP04GH4567'; window.scanModule.updatePresetChips(); window.scanModule.startScan();">
+                        <i data-lucide="eye-off"></i> 3. Low Confidence OCR
+                    </button>
+                    <button id="btn-exit-presentation" class="btn btn-sm btn-secondary">
+                        <i data-lucide="x"></i> Exit Presentation
+                    </button>
+                </div>
+            </div>
+
+            <!-- Dynamic Views Container -->
+            <main id="content-container">
+
+                <!-- ==========================================================
+                     VIEW: DASHBOARD
+                     ========================================================== -->
+                <section id="view-dashboard" class="view-section active">
+                    <div class="dashboard-welcome">
+                        <div class="welcome-text">
+                            <h2>Good Morning, Admin</h2>
+                            <p>Smart College Gate Overview & Fleet Activity</p>
+                        </div>
+                        <div style="display: flex; gap: 10px;">
+                            <button class="btn btn-secondary btn-sm" onclick="window.reportsModule.openDailyReportModal()">
+                                <i data-lucide="file-text"></i> Daily Audit
+                            </button>
+                            <button id="btn-dashboard-scan-bus" class="btn btn-primary btn-sm">
+                                <i data-lucide="scan-line"></i> Quick Scan Bus
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Statistics Cards Grid (6 Metric Cards) -->
+                    <div class="metrics-grid">
+                        <!-- 1. Total Registered Buses -->
+                        <div class="metric-card c-blue">
+                            <div class="metric-card-top">
+                                <span class="metric-label">Total Registered Buses</span>
+                                <div class="metric-icon-box"><i data-lucide="bus"></i></div>
+                            </div>
+                            <div class="metric-value" id="stat-total-buses">06</div>
+                            <div class="metric-trend up"><i data-lucide="trending-up" style="width:12px;height:12px"></i> Active Campus Fleet</div>
+                        </div>
+
+                        <!-- 2. Currently Inside -->
+                        <div class="metric-card c-cyan">
+                            <div class="metric-card-top">
+                                <span class="metric-label">Currently Inside</span>
+                                <div class="metric-icon-box"><i data-lucide="map-pin"></i></div>
+                            </div>
+                            <div class="metric-value" id="stat-currently-inside">03</div>
+                            <div class="metric-trend" style="color:var(--cyan-primary)"><i data-lucide="check" style="width:12px;height:12px"></i> Parked on Campus</div>
+                        </div>
+
+                        <!-- 3. Today's Entries -->
+                        <div class="metric-card c-green">
+                            <div class="metric-card-top">
+                                <span class="metric-label">Today's Entries</span>
+                                <div class="metric-icon-box"><i data-lucide="arrow-down-left"></i></div>
+                            </div>
+                            <div class="metric-value" id="stat-today-entries">04</div>
+                            <div class="metric-trend up"><i data-lucide="arrow-up" style="width:12px;height:12px"></i> Inbound Trips</div>
+                        </div>
+
+                        <!-- 4. Today's Exits -->
+                        <div class="metric-card c-purple">
+                            <div class="metric-card-top">
+                                <span class="metric-label">Today's Exits</span>
+                                <div class="metric-icon-box"><i data-lucide="arrow-up-right"></i></div>
+                            </div>
+                            <div class="metric-value" id="stat-today-exits">02</div>
+                            <div class="metric-trend" style="color:var(--purple-accent)"><i data-lucide="arrow-right" style="width:12px;height:12px"></i> Outbound Trips</div>
+                        </div>
+
+                        <!-- 5. Unknown Attempts -->
+                        <div class="metric-card c-red">
+                            <div class="metric-card-top">
+                                <span class="metric-label">Unknown Attempts</span>
+                                <div class="metric-icon-box"><i data-lucide="alert-octagon"></i></div>
+                            </div>
+                            <div class="metric-value" id="stat-unknown-attempts">01</div>
+                            <div class="metric-trend alert"><i data-lucide="shield-alert" style="width:12px;height:12px"></i> Security Alerts</div>
+                        </div>
+
+                        <!-- 6. System Status -->
+                        <div class="metric-card c-green" id="card-system-status">
+                            <div class="metric-card-top">
+                                <span class="metric-label">System Status</span>
+                                <div class="metric-icon-box"><i data-lucide="activity"></i></div>
+                            </div>
+                            <div class="metric-value" id="stat-system-status" style="font-size:20px; padding-top:4px;">ONLINE</div>
+                            <div class="metric-trend" style="color:var(--success)"><i data-lucide="cpu" style="width:12px;height:12px"></i> All Sensors Active</div>
+                        </div>
+                    </div>
+
+                    <!-- Hardware Status Glance Bar -->
+                    <div class="hardware-glance-bar" id="hardware-glance-items">
+                        <!-- Populated by JavaScript -->
+                    </div>
+
+                    <!-- Dashboard Main Grid (Live Gate Monitor + Recent Activity) -->
+                    <div class="dashboard-main-grid">
+                        
+                        <!-- Live Gate Monitor Card -->
+                        <div class="camera-monitor-card glass-panel-elevated">
+                            <div class="monitor-header">
+                                <div class="monitor-title">
+                                    <i data-lucide="video" style="color: var(--cyan-primary);"></i>
+                                    LIVE GATE MONITOR • CAMERA 01
+                                </div>
+                                <span class="badge badge-danger">
+                                    <span class="status-dot red"></span> LIVE • SIMULATION
+                                </span>
+                            </div>
+
+                            <div class="camera-screen-wrapper">
+                                <div class="camera-grid-overlay"></div>
+                                
+                                <div class="camera-hud-top">
+                                    <span>COLLEGE MAIN GATE • ENTRY BAY 01</span>
+                                    <span class="rec-badge"><span class="status-dot red"></span> REC</span>
+                                </div>
+
+                                <div class="camera-crosshair">
+                                    <div class="crosshair-corner crosshair-tl"></div>
+                                    <div class="crosshair-corner crosshair-tr"></div>
+                                    <div class="crosshair-corner crosshair-bl"></div>
+                                    <div class="crosshair-corner crosshair-br"></div>
+                                </div>
+
+                                <!-- Bus Graphic Simulation -->
+                                <div class="camera-visual-scene">
+                                    <div style="font-size: 84px; color: rgba(0, 229, 255, 0.15); display: flex; flex-direction: column; align-items: center;">
+                                        <i data-lucide="bus" style="width: 120px; height: 120px; stroke-width: 1.2;"></i>
+                                    </div>
+
+                                    <div class="anpr-bounding-box">
+                                        <div class="anpr-box-label">[ANPR TARGET]</div>
+                                        <span style="font-family:'JetBrains Mono',monospace; font-weight:800; font-size:13px; color:#fff;">
+                                            MP 04 AB 1234
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="scan-laser-line" id="scan-laser-line-dash"></div>
+
+                                <div class="camera-hud-bottom">
+                                    <span id="camera-hud-live-time">2026-10-03 00:00:00 UTC</span>
+                                    <span style="color:var(--cyan-primary);">FPS: 30.0 | RES: 1080p</span>
+                                </div>
+                            </div>
+
+                            <div class="monitor-controls-bar">
+                                <div class="monitor-status-text">
+                                    <span class="status-dot green"></span>
+                                    <span>IR Beam Trigger Ready</span>
+                                </div>
+                                <div style="display: flex; gap: 8px;">
+                                    <button id="btn-dashboard-capture-cam" class="btn btn-secondary btn-sm">
+                                        <i data-lucide="camera"></i> CAPTURE FRAME
+                                    </button>
+                                    <button onclick="window.app.navigateTo('scan')" class="btn btn-primary btn-sm">
+                                        <i data-lucide="scan-line"></i> OPEN LIVE SCANNER
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Recent Activity Card -->
+                        <div class="recent-activity-card glass-panel">
+                            <div class="section-header-row">
+                                <div class="section-title">
+                                    <i data-lucide="history" style="color: var(--cyan-primary);"></i>
+                                    Recent Gate Activity
+                                </div>
+                                <a href="#history" class="btn btn-secondary btn-sm" onclick="window.app.navigateTo('history')">
+                                    View All Logs
+                                </a>
+                            </div>
+
+                            <div class="activity-table-wrapper">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Time</th>
+                                            <th>Vehicle</th>
+                                            <th>Driver & Route</th>
+                                            <th>Type</th>
+                                            <th>Result</th>
+                                            <th>Conf</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="dashboard-recent-activity-tbody">
+                                        <!-- Rendered via JavaScript -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+
+
+                <!-- ==========================================================
+                     VIEW: LIVE SCAN (Dedicated ANPR Scanner Station)
+                     ========================================================== -->
+                <section id="view-scan" class="view-section">
+                    <div class="section-header-row" style="margin-bottom: 20px;">
+                        <div>
+                            <h2 style="font-size: 22px; font-weight: 800; color: var(--text-primary);">ANPR Live Scanning Station</h2>
+                            <p style="font-size: 13px; color: var(--text-secondary);">Simulated high-speed camera optical recognition & IoT gate pass verification</p>
+                        </div>
+                        <div style="display: flex; gap: 10px;">
+                            <button class="btn btn-amber btn-sm" onclick="window.manualVerifyModal.open()">
+                                <i data-lucide="clipboard-check"></i> Manual Override
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="scanner-grid">
+                        
+                        <!-- Left Column: Camera Viewport -->
+                        <div class="scanner-left-col">
+                            <div class="camera-monitor-card glass-panel-elevated">
+                                <div class="monitor-header">
+                                    <div class="monitor-title">
+                                        <i data-lucide="camera" style="color: var(--cyan-primary);"></i>
+                                        COLLEGE MAIN GATE • BUS SCANNING AREA (CAMERA 01)
+                                    </div>
+                                    <span class="badge badge-danger">
+                                        <span class="status-dot red"></span> LIVE SIMULATION
+                                    </span>
+                                </div>
+
+                                <div class="camera-screen-wrapper" style="aspect-ratio: 16/10;">
+                                    <div class="camera-grid-overlay"></div>
+                                    
+                                    <div class="camera-hud-top">
+                                        <span>GATE BAY #01 • ANPR ENGINE v2.4</span>
+                                        <span class="rec-badge"><span class="status-dot red"></span> REC</span>
+                                    </div>
+
+                                    <div class="camera-crosshair">
+                                        <div class="crosshair-corner crosshair-tl"></div>
+                                        <div class="crosshair-corner crosshair-tr"></div>
+                                        <div class="crosshair-corner crosshair-bl"></div>
+                                        <div class="crosshair-corner crosshair-br"></div>
+                                    </div>
+
+                                    <!-- Scene Bus Representation -->
+                                    <div class="camera-visual-scene">
+                                        <div style="font-size: 100px; color: rgba(0, 229, 255, 0.2); display: flex; flex-direction: column; align-items: center;">
+                                            <i data-lucide="bus" style="width: 140px; height: 140px; stroke-width: 1.2;"></i>
+                                        </div>
+
+                                        <div class="anpr-bounding-box" style="width: 160px; height: 46px;">
+                                            <div class="anpr-box-label">[ANPR TARGET CROP]</div>
+                                            <span id="camera-plate-overlay-text" style="font-family:'JetBrains Mono',monospace; font-weight:800; font-size:15px; color:#fff;">
+                                                MP04AB1234
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <!-- Active Scan Laser Beam -->
+                                    <div class="scan-laser-line" id="scan-laser-line"></div>
+
+                                    <div class="camera-hud-bottom">
+                                        <span>STATUS: READY FOR VEHICLE</span>
+                                        <span style="color: var(--cyan-primary);">EXPOSURE: AUTO | GAIN: 1.2x</span>
+                                    </div>
+                                </div>
+
+                                <div style="margin-top: 18px; display: flex; gap: 12px; align-items: center;">
+                                    <button id="btn-start-scan" class="btn btn-primary btn-lg" style="flex: 1;">
+                                        <i data-lucide="scan-line"></i> START BUS SCAN
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Demo Bus Selector Card -->
+                            <div class="demo-selector-card glass-panel">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <span style="font-size: 12px; font-weight: 700; text-transform: uppercase; color: var(--cyan-primary); letter-spacing: 0.5px;">
+                                        DEMO INPUT • SELECT SIMULATED VEHICLE
+                                    </span>
+                                    <span class="badge badge-demo">PRESET SELECTOR</span>
+                                </div>
+
+                                <div class="demo-buses-chips">
+                                    <div class="demo-bus-chip selected" data-plate="MP04AB1234">
+                                        <div class="chip-plate">MP04AB1234</div>
+                                        <div class="chip-type">Registered • Bhopal</div>
+                                    </div>
+
+                                    <div class="demo-bus-chip" data-plate="MP04CD5678">
+                                        <div class="chip-plate">MP04CD5678</div>
+                                        <div class="chip-type">Registered • Sehore</div>
+                                    </div>
+
+                                    <div class="demo-bus-chip" data-plate="MP04EF9012">
+                                        <div class="chip-plate">MP04EF9012</div>
+                                        <div class="chip-type">Registered • Raisen</div>
+                                    </div>
+
+                                    <div class="demo-bus-chip" data-plate="MP04XY9999">
+                                        <div class="chip-plate" style="color:var(--danger);">MP04XY9999</div>
+                                        <div class="chip-type">Unknown Bus ⚠</div>
+                                    </div>
+
+                                    <div class="demo-bus-chip" data-plate="MP04GH4567">
+                                        <div class="chip-plate" style="color:var(--warning);">MP04GH4567</div>
+                                        <div class="chip-type">Low Confidence (52%)</div>
+                                    </div>
+                                </div>
+
+                                <!-- Custom Plate Input -->
+                                <div style="margin-top: 14px; display: flex; gap: 8px;">
+                                    <input type="text" id="custom-sim-plate" class="form-control" placeholder="Or enter custom plate (e.g. MP04ZZ1122)" style="text-transform:uppercase;">
+                                    <button id="btn-apply-custom-plate" class="btn btn-secondary btn-sm">
+                                        <i data-lucide="play"></i> Simulate
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right Column: Step-by-Step Pipeline & Result Card -->
+                        <div class="scanner-right-col">
+                            
+                            <!-- Multi-Step Animated Pipeline Card -->
+                            <div class="pipeline-card glass-panel">
+                                <div style="font-size: 13px; font-weight: 700; color: var(--text-primary); display: flex; align-items: center; justify-content: space-between;">
+                                    <span>SYSTEM VERIFICATION WORKFLOW</span>
+                                    <span class="badge badge-cyan">PIPELINE MONITOR</span>
+                                </div>
+
+                                <div class="pipeline-steps-list">
+                                    <!-- Step 1 -->
+                                    <div class="pipeline-step pending" id="pipeline-step-1">
+                                        <div class="step-number">01</div>
+                                        <div class="step-details">
+                                            <div class="step-title"><span>IR SENSOR</span><span>GPIO 17</span></div>
+                                            <div class="step-desc">Waiting for vehicle approach...</div>
+                                        </div>
+                                        <div class="step-status-icon"><i data-lucide="circle" style="width:16px;height:16px;color:var(--text-muted)"></i></div>
+                                    </div>
+
+                                    <!-- Step 2 -->
+                                    <div class="pipeline-step pending" id="pipeline-step-2">
+                                        <div class="step-number">02</div>
+                                        <div class="step-details">
+                                            <div class="step-title"><span>HD CAMERA</span><span>CSI-0 1080P</span></div>
+                                            <div class="step-desc">Frame buffer standby</div>
+                                        </div>
+                                        <div class="step-status-icon"><i data-lucide="circle" style="width:16px;height:16px;color:var(--text-muted)"></i></div>
+                                    </div>
+
+                                    <!-- Step 3 -->
+                                    <div class="pipeline-step pending" id="pipeline-step-3">
+                                        <div class="step-number">03</div>
+                                        <div class="step-details">
+                                            <div class="step-title"><span>ANPR LOCATOR</span><span>YOLOv8 PLATE</span></div>
+                                            <div class="step-desc">Bounding box locator</div>
+                                        </div>
+                                        <div class="step-status-icon"><i data-lucide="circle" style="width:16px;height:16px;color:var(--text-muted)"></i></div>
+                                    </div>
+
+                                    <!-- Step 4 -->
+                                    <div class="pipeline-step pending" id="pipeline-step-4">
+                                        <div class="step-number">04</div>
+                                        <div class="step-details">
+                                            <div class="step-title"><span>OCR ENGINE</span><span>TESSERACT MATRIX</span></div>
+                                            <div class="step-desc">Character segmentation</div>
+                                        </div>
+                                        <div class="step-status-icon"><i data-lucide="circle" style="width:16px;height:16px;color:var(--text-muted)"></i></div>
+                                    </div>
+
+                                    <!-- Step 5 -->
+                                    <div class="pipeline-step pending" id="pipeline-step-5">
+                                        <div class="step-number">05</div>
+                                        <div class="step-details">
+                                            <div class="step-title"><span>DATABASE CHECK</span><span>SQLITE FLEET DB</span></div>
+                                            <div class="step-desc">Registry verification</div>
+                                        </div>
+                                        <div class="step-status-icon"><i data-lucide="circle" style="width:16px;height:16px;color:var(--text-muted)"></i></div>
+                                    </div>
+
+                                    <!-- Step 6 -->
+                                    <div class="pipeline-step pending" id="pipeline-step-6">
+                                        <div class="step-number">06</div>
+                                        <div class="step-details">
+                                            <div class="step-title"><span>GATE CONTROL</span><span>SERVO BARRIER</span></div>
+                                            <div class="step-desc">Access decision & log</div>
+                                        </div>
+                                        <div class="step-status-icon"><i data-lucide="circle" style="width:16px;height:16px;color:var(--text-muted)"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Dynamic Scan Result Card (Shown after scan completes) -->
+                            <div id="scan-result-card" class="scan-result-card glass-panel">
+                                <!-- Populated dynamically by js/scan.js -->
+                            </div>
+
+                        </div>
+
+                    </div>
+                </section>
+
+
+                <!-- ==========================================================
+                     VIEW: BUS MANAGEMENT
+                     ========================================================== -->
+                <section id="view-buses" class="view-section">
+                    <div class="section-header-row">
+                        <div>
+                            <h2 style="font-size: 22px; font-weight: 800; color: var(--text-primary);">Bus Fleet Management</h2>
+                            <p style="font-size: 13px; color: var(--text-secondary);">Manage registered college transportation vehicles, drivers, and routes.</p>
+                        </div>
+                        <button id="btn-add-bus" class="btn btn-primary">
+                            <i data-lucide="plus"></i> REGISTER NEW BUS
+                        </button>
+                    </div>
+
+                    <div class="buses-toolbar">
+                        <div class="search-filter-group">
+                            <div class="search-box">
+                                <i data-lucide="search" class="search-icon"></i>
+                                <input type="text" id="buses-search-input" class="form-control" placeholder="Search bus plate, driver or route...">
+                            </div>
+
+                            <select id="buses-status-filter" class="form-control" style="width: 140px;">
+                                <option value="ALL">All Status</option>
+                                <option value="ACTIVE">Active Only</option>
+                                <option value="INACTIVE">Inactive Only</option>
+                            </select>
+                        </div>
+
+                        <span id="buses-count-badge" class="badge badge-cyan">0 Vehicles</span>
+                    </div>
+
+                    <div class="glass-panel" style="padding: 16px; overflow-x: auto;">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Fleet ID</th>
+                                    <th>Plate Number</th>
+                                    <th>Driver / Bus Model</th>
+                                    <th>Contact</th>
+                                    <th>Designated Route</th>
+                                    <th>Campus Status</th>
+                                    <th>Fleet Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="buses-table-tbody">
+                                <!-- Populated by js/buses.js -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+
+                <!-- ==========================================================
+                     VIEW: ENTRY HISTORY
+                     ========================================================== -->
+                <section id="view-history" class="view-section">
+                    <div class="section-header-row">
+                        <div>
+                            <h2 style="font-size: 22px; font-weight: 800; color: var(--text-primary);">Movement Entry History</h2>
+                            <p style="font-size: 13px; color: var(--text-secondary);">Complete chronological record of all college gate movements and ANPR reads.</p>
+                        </div>
+                        <button id="btn-history-export-csv" class="btn btn-secondary">
+                            <i data-lucide="download"></i> Export CSV
+                        </button>
+                    </div>
+
+                    <!-- Multi-Filter Card -->
+                    <div class="history-filters-card glass-panel">
+                        <div class="history-filter-grid">
+                            <div class="form-group" style="margin-bottom:0;">
+                                <label class="form-label">Search Query</label>
+                                <input type="text" id="history-search-input" class="form-control" placeholder="Filter by plate, driver or route...">
+                            </div>
+
+                            <div class="form-group" style="margin-bottom:0;">
+                                <label class="form-label">Movement Type</label>
+                                <select id="history-type-filter" class="form-control">
+                                    <option value="ALL">All Movements</option>
+                                    <option value="IN">IN Entries Only</option>
+                                    <option value="OUT">OUT Exits Only</option>
+                                    <option value="ALERT">Security Alerts Only</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group" style="margin-bottom:0;">
+                                <label class="form-label">Verification</label>
+                                <select id="history-verif-filter" class="form-control">
+                                    <option value="ALL">All Methods</option>
+                                    <option value="AUTO VERIFIED">Auto Verified</option>
+                                    <option value="MANUAL VERIFIED">Manual Verified</option>
+                                    <option value="UNREGISTERED">Unregistered Alert</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group" style="margin-bottom:0;">
+                                <label class="form-label">Filter Date</label>
+                                <input type="date" id="history-date-filter" class="form-control">
+                            </div>
+
+                            <button id="history-reset-filters" class="btn btn-secondary btn-sm" style="height:38px;">
+                                <i data-lucide="rotate-ccw"></i> Reset
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="glass-panel" style="padding: 16px; overflow-x: auto;">
+                        <div style="display:flex; justify-content:space-between; margin-bottom:12px; align-items:center;">
+                            <span id="history-count-badge" class="badge badge-cyan">0 Total Records</span>
+                        </div>
+
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Timestamp</th>
+                                    <th>Plate Number</th>
+                                    <th>Driver & Route</th>
+                                    <th>Type</th>
+                                    <th>OCR Conf</th>
+                                    <th>Verification</th>
+                                    <th>Notes</th>
+                                    <th>Snapshot</th>
+                                </tr>
+                            </thead>
+                            <tbody id="history-table-tbody">
+                                <!-- Populated by js/history.js -->
+                            </tbody>
+                        </table>
+
+                        <!-- Pagination Bar -->
+                        <div class="pagination-bar">
+                            <span id="history-pagination-info" style="font-size:12px; color:var(--text-muted);">
+                                Showing 1-8 of 8 entries
+                            </span>
+                            <div style="display:flex; gap:8px;">
+                                <button id="history-prev-page" class="btn btn-secondary btn-sm" disabled>
+                                    <i data-lucide="chevron-left"></i> Previous
+                                </button>
+                                <button id="history-next-page" class="btn btn-secondary btn-sm">
+                                    Next <i data-lucide="chevron-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+
+                <!-- ==========================================================
+                     VIEW: REPORTS & ANALYTICS
+                     ========================================================== -->
+                <section id="view-reports" class="view-section">
+                    <div class="section-header-row">
+                        <div>
+                            <h2 style="font-size: 22px; font-weight: 800; color: var(--text-primary);">Gate Traffic & Fleet Analytics</h2>
+                            <p style="font-size: 13px; color: var(--text-secondary);">Comprehensive gate utilization charts, hourly volume analysis, and compliance metrics.</p>
+                        </div>
+                        <div style="display: flex; gap: 10px;">
+                            <button id="btn-generate-daily-report" class="btn btn-primary btn-sm">
+                                <i data-lucide="file-check"></i> Generate Daily Report
+                            </button>
+                            <button id="btn-reports-export-csv" class="btn btn-secondary btn-sm">
+                                <i data-lucide="download"></i> Export Analytics CSV
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Top Summary Metric Cards -->
+                    <div class="reports-summary-cards">
+                        <div class="metric-card c-green">
+                            <div class="metric-label">Today's Total Entries</div>
+                            <div class="metric-value" id="report-stat-entries">00</div>
+                            <div class="metric-trend up"><i data-lucide="arrow-down-left"></i> Inbound Volume</div>
+                        </div>
+                        <div class="metric-card c-blue">
+                            <div class="metric-label">Today's Total Exits</div>
+                            <div class="metric-value" id="report-stat-exits">00</div>
+                            <div class="metric-trend" style="color:var(--info);"><i data-lucide="arrow-up-right"></i> Outbound Volume</div>
+                        </div>
+                        <div class="metric-card c-cyan">
+                            <div class="metric-label">Currently Inside Campus</div>
+                            <div class="metric-value" id="report-stat-inside">00</div>
+                            <div class="metric-trend" style="color:var(--cyan-primary);"><i data-lucide="map-pin"></i> Active in Yard</div>
+                        </div>
+                        <div class="metric-card c-red">
+                            <div class="metric-label">Unknown Vehicle Alerts</div>
+                            <div class="metric-value" id="report-stat-unknown">00</div>
+                            <div class="metric-trend alert"><i data-lucide="alert-octagon"></i> Blocked Entries</div>
+                        </div>
+                    </div>
+
+                    <!-- Charts Grid -->
+                    <div class="charts-grid">
+                        <!-- Chart 1: IN vs OUT -->
+                        <div class="chart-card glass-panel">
+                            <div class="chart-header">
+                                <div style="font-weight:700; font-size:14px; color:var(--text-primary);">IN vs OUT Daily Traffic Volume</div>
+                                <span class="badge badge-cyan">Past 6 Days</span>
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="chart-in-out-canvas"></canvas>
+                            </div>
+                        </div>
+
+                        <!-- Chart 2: Hourly Gate Distribution -->
+                        <div class="chart-card glass-panel">
+                            <div class="chart-header">
+                                <div style="font-weight:700; font-size:14px; color:var(--text-primary);">Peak Gate Traffic Distribution</div>
+                                <span class="badge badge-cyan">Hourly Spread</span>
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="chart-hourly-traffic-canvas"></canvas>
+                            </div>
+                        </div>
+
+                        <!-- Chart 3: Verification Breakdown -->
+                        <div class="chart-card glass-panel">
+                            <div class="chart-header">
+                                <div style="font-weight:700; font-size:14px; color:var(--text-primary);">Vehicle Verification Classification</div>
+                                <span class="badge badge-demo">ANPR Accuracy</span>
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="chart-classification-canvas"></canvas>
+                            </div>
+                        </div>
+
+                        <!-- Chart 4: Route Volume Analysis -->
+                        <div class="chart-card glass-panel">
+                            <div class="chart-header">
+                                <div style="font-weight:700; font-size:14px; color:var(--text-primary);">Trip Volume by Bus Route</div>
+                                <span class="badge badge-cyan">Fleet Allocation</span>
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="chart-route-volume-canvas"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+
+                <!-- ==========================================================
+                     VIEW: SYSTEM STATUS & HARDWARE HEALTH
+                     ========================================================== -->
+                <section id="view-system" class="view-section">
+                    <div class="section-header-row">
+                        <div>
+                            <h2 style="font-size: 22px; font-weight: 800; color: var(--text-primary);">Hardware Health & Simulation Monitor</h2>
+                            <p style="font-size: 13px; color: var(--text-secondary);">Interactive IoT sensor representation and fault simulation testing.</p>
+                        </div>
+                        <button id="btn-restore-system" class="btn btn-success">
+                            <i data-lucide="refresh-cw"></i> RESTORE ALL HARDWARE
+                        </button>
+                    </div>
+
+                    <div style="background: rgba(0, 229, 255, 0.06); border: 1px dashed var(--border-accent); border-radius: var(--radius-md); padding: 14px 18px; margin-bottom: 24px; display:flex; align-items:center; gap:12px;">
+                        <i data-lucide="info" style="color:var(--cyan-primary); width:24px; height:24px; flex-shrink:0;"></i>
+                        <div style="font-size: 12.5px; color: var(--text-secondary);">
+                            <strong style="color:var(--cyan-primary);">Software Hardware Simulation Mode:</strong> Hardware components below simulate Raspberry Pi GPIO pin states, CSI camera telemetry, and barrier motor actuation for presentation and testing purposes.
+                        </div>
+                    </div>
+
+                    <!-- Hardware Grid -->
+                    <div class="system-health-grid" id="system-hardware-grid">
+                        <!-- Rendered by js/system.js -->
+                    </div>
+
+                    <!-- Live Diagnostic Logs Terminal -->
+                    <div class="logs-terminal-card glass-panel">
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+                            <div style="font-weight:700; font-size:14px; color:var(--text-primary); display:flex; align-items:center; gap:8px;">
+                                <i data-lucide="terminal" style="color:var(--cyan-primary); width:16px; height:16px;"></i>
+                                Real-Time Hardware Diagnostic Telemetry Stream
+                            </div>
+                            <span class="badge badge-cyan">DAEMON ACTIVE</span>
+                        </div>
+                        <div class="terminal-window" id="system-terminal-logs">
+                            <!-- Terminal lines appended by js/system.js -->
+                        </div>
+                    </div>
+                </section>
+
+
+                <!-- ==========================================================
+                     VIEW: SETTINGS
+                     ========================================================== -->
+                <section id="view-settings" class="view-section">
+                    <div class="section-header-row">
+                        <div>
+                            <h2 style="font-size: 22px; font-weight: 800; color: var(--text-primary);">System & Demo Settings</h2>
+                            <p style="font-size: 13px; color: var(--text-secondary);">Configure prototype parameters, audio effects, and reset demonstration data.</p>
+                        </div>
+                    </div>
+
+                    <form id="settings-form">
+                        <div class="settings-grid">
+                            
+                            <!-- Application & Demo Settings -->
+                            <div class="settings-card glass-panel">
+                                <h3 style="font-size:15px; font-weight:700; margin-bottom:16px; color:var(--cyan-primary);">
+                                    Demo Environment Configuration
+                                </h3>
+
+                                <div class="setting-row">
+                                    <div class="setting-info">
+                                        <h4>Web Audio Sound Effects</h4>
+                                        <p>Synthesizes scan beeps, gate chime & alerts (Web Audio API)</p>
+                                    </div>
+                                    <label class="switch">
+                                        <input type="checkbox" id="setting-sound-effects" checked>
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+
+                                <div class="setting-row">
+                                    <div class="setting-info">
+                                        <h4>Scanning Pipeline Speed</h4>
+                                        <p>Adjust step-by-step presentation animation speed</p>
+                                    </div>
+                                    <select id="setting-scan-speed" class="form-control" style="width:120px;">
+                                        <option value="normal">Normal (0.6s)</option>
+                                        <option value="fast">Fast (0.3s)</option>
+                                        <option value="instant">Instant</option>
+                                    </select>
+                                </div>
+
+                                <div class="setting-row">
+                                    <div class="setting-info">
+                                        <h4>Auto Gate Barrier Close Delay</h4>
+                                        <p>Seconds before servo arm rotates back to locked 0°</p>
+                                    </div>
+                                    <div style="display:flex; align-items:center; gap:8px;">
+                                        <input type="number" id="setting-gate-timer" class="form-control" value="4" min="2" max="15" style="width:70px;">
+                                        <span style="font-size:12px; color:var(--text-muted);">sec</span>
+                                    </div>
+                                </div>
+
+                                <div class="setting-row" style="border-bottom:none;">
+                                    <div class="setting-info">
+                                        <h4>OCR Confidence Acceptance Threshold</h4>
+                                        <p>Below this value, manual verification is required (<span id="setting-ocr-val" style="color:var(--cyan-primary); font-weight:700;">75%</span>)</p>
+                                    </div>
+                                    <input type="range" id="setting-ocr-threshold" min="40" max="95" value="75" style="width:120px; cursor:pointer;">
+                                </div>
+                            </div>
+
+                            <!-- Data Reset & Maintenance -->
+                            <div class="settings-card glass-panel">
+                                <h3 style="font-size:15px; font-weight:700; margin-bottom:16px; color:var(--purple-accent);">
+                                    LocalStorage Data & Demonstration Reset
+                                </h3>
+
+                                <p style="font-size:13px; color:var(--text-secondary); line-height:1.6; margin-bottom:20px;">
+                                    This prototype stores fleet registries, movement logs, and simulated component states inside your browser's persistent <code>localStorage</code>.
+                                </p>
+
+                                <div style="background:rgba(239,68,68,0.06); border:1px solid rgba(239,68,68,0.2); border-radius:var(--radius-md); padding:16px; margin-bottom:20px;">
+                                    <div style="font-weight:700; color:var(--danger); font-size:13px; margin-bottom:4px;">Factory Demonstration Reset</div>
+                                    <p style="font-size:12px; color:var(--text-muted); margin-bottom:12px;">
+                                        Restore original sample buses (MP04AB1234, MP04CD5678, MP04EF9012, etc.) and reset all entries for a fresh presentation.
+                                    </p>
+                                    <button type="button" id="btn-reset-demo-data" class="btn btn-danger btn-sm">
+                                        <i data-lucide="rotate-ccw"></i> RESET DEMO DATA
+                                    </button>
+                                </div>
+
+                                <div style="font-size:11px; color:var(--text-muted); padding-top:10px;">
+                                    SmartGate Prototype • Built with HTML5, Vanilla CSS, JavaScript & Chart.js.
+                                </div>
+                            </div>
+
+                        </div>
+                    </form>
+                </section>
+
+            </main>
+        </div>
+    </div>
+
+
+    <!-- ==========================================================================
+         3. MODALS
+         ========================================================================== -->
+
+    <!-- Modal: Add / Edit Bus -->
+    <div id="modal-bus-form" class="modal-backdrop">
+        <div class="modal-dialog">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modal-bus-title">Register New College Bus</h3>
+                <button type="button" class="btn btn-secondary btn-icon btn-sm close-bus-modal">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+            <form id="form-bus-details">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="form-label" for="bus-input-plate">Number Plate *</label>
+                        <input type="text" id="bus-input-plate" class="form-control" placeholder="e.g. MP04AB1234" required style="text-transform:uppercase; font-family:'JetBrains Mono',monospace; font-weight:700;">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="bus-input-driver">Driver Name *</label>
+                        <input type="text" id="bus-input-driver" class="form-control" placeholder="e.g. Ramesh Kumar" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="bus-input-phone">Driver Phone Number</label>
+                        <input type="tel" id="bus-input-phone" class="form-control" placeholder="e.g. 9876543210">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="bus-input-route">Designated Route *</label>
+                        <input type="text" id="bus-input-route" class="form-control" placeholder="e.g. Bhopal - College" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="bus-input-model">Bus Model / Capacity</label>
+                        <input type="text" id="bus-input-model" class="form-control" placeholder="e.g. Tata Starbus Ultra (52 Seater)">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="bus-input-status">Fleet Status</label>
+                        <select id="bus-input-status" class="form-control">
+                            <option value="ACTIVE">ACTIVE</option>
+                            <option value="INACTIVE">INACTIVE</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary close-bus-modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">
+                        <i data-lucide="save"></i> Save Bus Record
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal: Manual Verification & Gate Override -->
+    <div id="modal-manual-verify" class="modal-backdrop">
+        <div class="modal-dialog">
+            <div class="modal-header">
+                <h3 class="modal-title">Manual Gate Verification & Override</h3>
+                <button type="button" class="btn btn-secondary btn-icon btn-sm close-mv-modal">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+            <form id="form-manual-verify">
+                <div class="modal-body">
+                    <div style="background:rgba(245,158,11,0.08); border:1px solid rgba(245,158,11,0.25); border-radius:var(--radius-md); padding:12px; margin-bottom:16px; font-size:12px; color:var(--warning);">
+                        Manual verification records an authenticated pass with officer confirmation notes.
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="mv-input-plate">Vehicle Plate Number *</label>
+                        <input type="text" id="mv-input-plate" class="form-control" placeholder="e.g. MP04XY9999" required style="text-transform:uppercase; font-family:'JetBrains Mono',monospace; font-weight:700;">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="mv-input-driver">Driver Name</label>
+                        <input type="text" id="mv-input-driver" class="form-control" placeholder="Driver name (if identified)">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="mv-input-route">Route / Purpose</label>
+                        <input type="text" id="mv-input-route" class="form-control" placeholder="e.g. Special College Route / Visitor">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="mv-input-type">Movement Direction *</label>
+                        <select id="mv-input-type" class="form-control">
+                            <option value="IN">IN ENTRY (Entering Campus)</option>
+                            <option value="OUT">OUT ENTRY (Exiting Campus)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="mv-input-notes">Security Officer Notes</label>
+                        <textarea id="mv-input-notes" class="form-control" rows="2" placeholder="Reason for manual verification..."></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary close-mv-modal">Cancel</button>
+                    <button type="submit" class="btn btn-amber">
+                        <i data-lucide="check-square"></i> VERIFY & RECORD ENTRY
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal: Camera Snapshot Inspector -->
+    <div id="modal-snapshot-viewer" class="modal-backdrop">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-header">
+                <h3 class="modal-title">ANPR Camera Frame Capture</h3>
+                <button type="button" class="btn btn-secondary btn-icon btn-sm close-snapshot-modal">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+            <div class="modal-body" id="snapshot-modal-content">
+                <!-- Rendered dynamically by js/history.js -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary close-snapshot-modal">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Daily Audit Printable Report -->
+    <div id="modal-daily-report" class="modal-backdrop">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-header">
+                <h3 class="modal-title">Daily Gate Pass Audit Report</h3>
+                <button type="button" class="btn btn-secondary btn-icon btn-sm close-report-modal">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+            <div class="modal-body" id="daily-report-body">
+                <!-- Rendered by js/reports.js -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary close-report-modal">Close</button>
+                <button type="button" id="btn-print-report" class="btn btn-primary">
+                    <i data-lucide="printer"></i> Print Report
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Global Toast Notifications Container -->
+    <div id="toast-container"></div>
+
+    <!-- ==========================================================================
+         4. JAVASCRIPT MODULES IN ORDER
+         ========================================================================== -->
+    <script src="js/data.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script src="js/scan.js"></script>
+    <script src="js/buses.js"></script>
+    <script src="js/history.js"></script>
+    <script src="js/reports.js"></script>
+    <script src="js/system.js"></script>
+
+</body>
+</html>
